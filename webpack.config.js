@@ -1,7 +1,11 @@
 const { exception } = require("console");
 const path = require("path");
 //recurso html
-const htmlwebpackplugin = require("html-webpack-plugin");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+//loader css
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+//copy plugin
+const CopyPlugin = require("copy-webpack-plugin");
 /** @type {import('webpack').Configuration} */
 
 module.exports = {
@@ -23,11 +27,15 @@ module.exports = {
         //exclue node_moduls
         exclude: /node_modules/,
       },
+      {
+        test: /\.css$/i,
+        use: [MiniCssExtractPlugin.loader, "css-loader"],
+      },
     ],
   },
   // SECCION DE PLUGINS
   plugins: [
-    new htmlwebpackplugin({
+    new HtmlWebpackPlugin({
       //configuracion de plugins
       //inyecta el bundle al template html
       inject: true,
@@ -35,6 +43,15 @@ module.exports = {
       template: "./public/index.html",
       //nombre final del archivo
       filename: "index.html",
+    }),
+    new MiniCssExtractPlugin(),
+    new CopyPlugin({
+      patterns: [
+        {
+          from: path.resolve(__dirname, "src", "assets/images"),
+          to: "assets/images",
+        },
+      ],
     }),
   ],
 };
