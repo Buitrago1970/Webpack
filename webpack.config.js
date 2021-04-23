@@ -6,17 +6,28 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 //copy plugin
 const CopyPlugin = require("copy-webpack-plugin");
+//optimizer
+const CssMinimizerWebpackPlugin = require("css-minimizer-webpack-plugin");
+const TerserPlugin = require("terser-webpack-plugin");
+const { dirname } = require("path");
+
 /** @type {import('webpack').Configuration} */
 
 module.exports = {
   entry: "./src/index.js",
   output: {
     path: path.resolve(__dirname, "dist"),
-    filename: "main.js",
+    filename: "[name].[contenthash].js",
     assetModuleFilename: "assets/images/[hash].[ext]",
   },
   resolve: {
     extensions: ["js"],
+    alias: {
+      "@assets": path.resolve(__dirname, "src/assets"),
+      "@styles": path.resolve(__dirname, "src/styles"),
+      "@templates": path.resolve(__dirname, "src/templates"),
+      "@utils": path.resolve(__dirname, "src/utils"),
+    },
   },
   module: {
     rules: [
@@ -49,13 +60,13 @@ module.exports = {
             // Especifica el tipo MIME con el que se alineará el archivo.
             // Los MIME Types (Multipurpose Internet Mail Extensions)
             // son la manera standard de mandar contenido a través de la red.
-            name: "[name].[ext]",
+            name: "[name].[contenthash].[ext]",
             // EL NOMBRE INICIAL DEL ARCHIVO + SU EXTENSIÓN
             // PUEDES AGREGARLE [name]hola.[ext] y el output del archivo seria
             // ubuntu-regularhola.woff
             outputPath: "./assets/fonts/",
             // EL DIRECTORIO DE SALIDA (SIN COMPLICACIONES)
-            publicPath: "./assets/fonts/",
+            publicPath: "../assets/fonts/",
             // EL DIRECTORIO PUBLICO (SIN COMPLICACIONES)
             esModule: false,
             // AVISAR EXPLICITAMENTE SI ES UN MODULO
@@ -73,9 +84,11 @@ module.exports = {
       //que template va a usar y donde buscar
       template: "./public/index.html",
       //nombre final del archivo
-      filename: "index.html",
+      filename: "[name].[contenthash].html",
     }),
-    new MiniCssExtractPlugin(),
+    new MiniCssExtractPlugin({
+      filename: "assets/[name].[contenthash].css",
+    }),
     // new CopyPlugin({
     //   patterns: [
     //     {
@@ -85,4 +98,8 @@ module.exports = {
     //   ],
     // }),
   ],
+  optimization: {
+    minimize: true,
+    minimizer: [new CssMinimizerWebpackPlugin(), new TerserPlugin()],
+  },
 };
