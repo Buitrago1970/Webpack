@@ -1,4 +1,5 @@
 [build]
     publish = "dist" 
-    CI = "npm run build"
+    command = "npm run build"
+    commandOrigin = "ui"
 
