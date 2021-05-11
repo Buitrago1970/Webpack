@@ -91,7 +91,7 @@ module.exports = {
       filename: "[name].[contenthash].html",
     }),
     new MiniCssExtractPlugin({
-      filename: "[name].[contenthash].css",
+      filename: "assets/[name].[contenthash].css",
     }),
     new DotenvPlugin(),
     new CleanWebpackPlugin(),

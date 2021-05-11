@@ -1,3 +1,4 @@
+// const API = process.env.API;
 const API = process.env.API;
 
 const getData = async (id) => {
