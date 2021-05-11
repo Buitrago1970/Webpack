@@ -10,6 +10,8 @@ const { dirname } = require("path");
 //.env
 const DotenvPlugin = require("dotenv-webpack");
 
+const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+
 /** @type {import('webpack').Configuration} */
 
 module.exports = {
@@ -90,6 +92,7 @@ module.exports = {
     new MiniCssExtractPlugin({
       filename: "[name].[contenthash].css",
     }),
+    new CleanWebpackPlugin(),
     new DotenvPlugin(),
     // new CopyPlugin({
     //   patterns: [
