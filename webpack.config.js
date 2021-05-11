@@ -1,4 +1,3 @@
-const { exception } = require("console");
 const path = require("path");
 //recurso html
 const HtmlWebpackPlugin = require("html-webpack-plugin");
@@ -9,7 +8,6 @@ const CopyPlugin = require("copy-webpack-plugin");
 //optimizer
 const CssMinimizerWebpackPlugin = require("css-minimizer-webpack-plugin");
 const TerserPlugin = require("terser-webpack-plugin");
-const { dirname } = require("path");
 //.env
 const DotenvPlugin = require("dotenv-webpack");
 //clean
