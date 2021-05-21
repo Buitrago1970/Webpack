@@ -18,8 +18,8 @@ const { BundleAnalyzerPlugin } = require("webpack-bundle-analyzer");
 
 module.exports = {
   entry: "./src/index.js",
-  entry: ["whatwg-fetch", "core-js/stable", "./src/index.js"],
-  target: ["web", "es5"],
+  // entry: ["whatwg-fetch", "core-js/stable", "./src/index.js"],
+  // target: ["web", "es5"],
   output: {
     path: path.resolve(__dirname, "dist"),
     filename: "[name].[contenthash].js",
