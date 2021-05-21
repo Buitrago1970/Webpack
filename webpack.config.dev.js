@@ -12,10 +12,14 @@ const DotenvPlugin = require("dotenv-webpack");
 
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 
+const { BundleAnalyzerPlugin } = require("webpack-bundle-analyzer");
+
 /** @type {import('webpack').Configuration} */
 
 module.exports = {
   entry: "./src/index.js",
+  entry: ["whatwg-fetch", "core-js/stable", "./src/index.js"],
+  target: ["web", "es5"],
   output: {
     path: path.resolve(__dirname, "dist"),
     filename: "[name].[contenthash].js",
@@ -94,6 +98,7 @@ module.exports = {
     }),
     new CleanWebpackPlugin(),
     new DotenvPlugin(),
+    new BundleAnalyzerPlugin(),
     // new CopyPlugin({
     //   patterns: [
     //     {
