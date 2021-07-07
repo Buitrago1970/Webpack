@@ -1,4 +1,4 @@
 
 # Primeros-Pasos-Webpack
-Prueba curso Webpack
 
+Proyecto conectado con api https://randomuser.me, usando Webpack para enviarlo a producción  
